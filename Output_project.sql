@@ -69,7 +69,17 @@ Where B.booking_id != B2.booking_id and B.customer_id != B2.customer_id
 
 
 
+-- To find average discount in each month
+SELECT CONCAT(ROUND(CAST(AVG(DISCOUNT / AMOUNT) * 100 AS numeric),2),'%') AS AVG_DISCOUNT,
+	DATEPART(MONTH , DATE_OF_BOOKING) AS MONTH
+FROM Booking_details
+GROUP BY MONTH
 
+--To find 10th highest amount
+Select amount from Booking_details B1 
+where 9 =(Select count(DISTINCT B2.Amount) 
+          From Booking_details B2
+          Where B2.Amount > B1.Amount)
 
 
 
