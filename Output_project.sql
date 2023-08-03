@@ -56,30 +56,11 @@ WHERE DIFFERENCE_IN_DAYS <>0
 GROUP BY DIFFERENCE_IN_DAYS
 
 
---Returning top 10 records as per amount
-SELECT TOP 15 * 
-FROM Oyo_project.dbo.Booking_details
-Order By amount DESC
-
-
---To find customers who have paid the same amount
-Select B.booking_id , B.customer_id
-FROM Booking_details B Join Booking_details B2 on B.amount = B2.amount
-Where B.booking_id != B2.booking_id and B.customer_id != B2.customer_id
 
 
 
--- To find average discount in each month
-SELECT CONCAT(ROUND(CAST(AVG(DISCOUNT / AMOUNT) * 100 AS numeric),2),'%') AS AVG_DISCOUNT,
-	DATEPART(MONTH , DATE_OF_BOOKING) AS MONTH
-FROM Booking_details
-GROUP BY MONTH
 
---To find 10th highest amount
-Select amount from Booking_details B1 
-where 9 =(Select count(DISTINCT B2.Amount) 
-          From Booking_details B2
-          Where B2.Amount > B1.Amount)
+
 
 
 
