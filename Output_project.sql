@@ -15,7 +15,13 @@ Group By city;
 --Avg No of hotels 
 Select count(distinct Hotel_id)/count(distinct city)
 From Oyo_project.dbo.Hotel_details
+  
+--no of bookings in each city 
+Select h2.City , count(h1.date_of_booking) as no_of_bookings
+From Oyo_project.dbo.Booking_details as h1 LEFT JOIN Oyo_project.dbo.Hotel_details as h2 on h1.hotel_id = h2.Hotel_id
+Group By City
 
+  
 --Cancellation rate citywise
 Select h2.city , count(status) as cancelled_citywise
 from Oyo_project.dbo.Booking_details as h1 LEFT JOIN Oyo_project.dbo.Hotel_details as h2 on h1.hotel_id = h2.Hotel_id
@@ -23,10 +29,12 @@ where h1.status = 'Cancelled'
 group by city
 order by city
 
---no of bookings in each city 
-Select h2.City , count(h1.date_of_booking) as no_of_bookings
+  
+  -- Average price of hotels across cities 
+Select h2.City , avg(h1.amount) as avg_amt
 From Oyo_project.dbo.Booking_details as h1 LEFT JOIN Oyo_project.dbo.Hotel_details as h2 on h1.hotel_id = h2.Hotel_id
 Group By City
+
 
 
 --No of nights stayed by the customers
@@ -54,6 +62,12 @@ SELECT DATEDIFF(DAY , date_of_booking , check_in) AS DIFFERENCE_IN_DAYS , COUNT(
 FROM Oyo_project.dbo.Booking_details
 WHERE DIFFERENCE_IN_DAYS <>0
 GROUP BY DIFFERENCE_IN_DAYS
+
+--Finding 10th highest amount
+Select amount FROM Oyo_project.dbo.Booking_details o1 
+where 9 = (Select count(distinct(o2.amount))
+          from Oyo_project.dbo.Booking_details o2
+          where o2.salary > o1.salary)
 
 
 
