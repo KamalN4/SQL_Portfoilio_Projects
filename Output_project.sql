@@ -67,7 +67,7 @@ GROUP BY DIFFERENCE_IN_DAYS
 Select amount FROM Oyo_project.dbo.Booking_details o1 
 where 9 = (Select count(distinct(o2.amount))
           from Oyo_project.dbo.Booking_details o2
-          where o2.salary > o1.salary)
+          where o2.amount > o1.amount)
 
 
 
